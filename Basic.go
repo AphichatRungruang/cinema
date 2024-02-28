@@ -22,6 +22,7 @@ type course struct {
 //	}
 func init() {
 	fmt.Println("init Main")
+
 }
 
 //	func changeMoney(c *course) int {
@@ -66,7 +67,10 @@ func main() {
 	fmt.Println(movieName)
 	movie.ReviewMovie(movieName, 8.4)
 	ticket.BuyTicket(movieName)
+
 	numnum := "72"
+	var Test string = "Testup"
+	fmt.Println(Test)
 	var m map[string]int = map[string]int{}
 	var Name string = "Fluke" + "Fy"
 	var Age int = 24
