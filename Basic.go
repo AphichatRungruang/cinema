@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html/v2"
 )
 
 type Book_Discription struct {
@@ -13,7 +14,12 @@ type Book_Discription struct {
 var ListBook []Book_Discription
 
 func main() {
-	app := fiber.New()
+
+	engine := html.New("./views", "html")
+
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
 
 	ListBook = append(ListBook, Book_Discription{ID: 1, Title_Book: "Golang", Author: "Me"})
 	ListBook = append(ListBook, Book_Discription{ID: 2, Title_Book: "API", Author: "Me"})
@@ -24,5 +30,27 @@ func main() {
 	app.Put("/Book/:id", UpdateBook)
 	app.Delete("/Book/:id", DeleteBook)
 
+	app.Post("/upload", uploadFile)
+	app.Get("/test-html", testHTML)
+
 	app.Listen(":8080")
+}
+
+func uploadFile(c *fiber.Ctx) error {
+	file, err := c.FormFile("image") //name Request
+
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).SendString(err.Error())
+	}
+	err = c.SaveFile(file, "./uploads/"+file.Filename) // nameFoder
+
+	if (err) != nil {
+		return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
+	}
+	return c.SendString("File upload complet!")
+}
+func testHTML(c *fiber.Ctx) error {
+	return c.Render("index", fiber.Map{
+		"Tital": "Hello,World!",
+	})
 }
