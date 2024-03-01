@@ -4,25 +4,25 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type Movie_Discription struct {
-	ID          int    `json:"id"`
-	Title_Movie string `json:"movie"`
-	Rating      int    `json:"author"`
+type Book_Discription struct {
+	ID         int    `json:"id"`
+	Title_Book string `json:"book"`
+	Author     string `json:"author"`
 }
 
-var ListMovies []Movie_Discription
+var ListBook []Book_Discription
 
 func main() {
 	app := fiber.New()
 
-	ListMovies = append(ListMovies, Movie_Discription{ID: 1, Title_Movie: "Avenger EndGame", Rating: 10.0})
-	ListMovies = append(ListMovies, Movie_Discription{ID: 2, Title_Movie: "Iron Man", Rating: 9.0})
+	ListBook = append(ListBook, Book_Discription{ID: 1, Title_Book: "Golang", Author: "Me"})
+	ListBook = append(ListBook, Book_Discription{ID: 2, Title_Book: "API", Author: "Me"})
 
-	app.Get("/Movie", getAllListMovies)
-	app.Get("/Movie/:id", getMovie)
-	app.Post("/Movie", createMovie)
-	app.Put("/Movie/:id", updateMovie)
-	app.Delete("/Movie/:id", deleteMovie)
+	app.Get("/Book", GetAllListBooks)
+	app.Get("/Book/:id", GetBook)
+	app.Post("/Book", CreateBook)
+	app.Put("/Book/:id", UpdateBook)
+	app.Delete("/Book/:id", DeleteBook)
 
 	app.Listen(":8080")
 }
