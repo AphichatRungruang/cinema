@@ -15,10 +15,10 @@ var ListBook []Book_Discription
 
 func main() {
 
-	engine := html.New("./views", "html")
+	template_engine := html.New("./views", ".html")
 
 	app := fiber.New(fiber.Config{
-		Views: engine,
+		Views: template_engine,
 	})
 
 	ListBook = append(ListBook, Book_Discription{ID: 1, Title_Book: "Golang", Author: "Me"})
@@ -31,7 +31,7 @@ func main() {
 	app.Delete("/Book/:id", DeleteBook)
 
 	app.Post("/upload", uploadFile)
-	app.Get("/test-html", testHTML)
+	app.Get("/test_html", testHTML)
 
 	app.Listen(":8080")
 }
@@ -52,5 +52,6 @@ func uploadFile(c *fiber.Ctx) error {
 func testHTML(c *fiber.Ctx) error {
 	return c.Render("index", fiber.Map{
 		"Tital": "Hello,World!",
+		"Name":  "FLUKEFY",
 	})
 }
